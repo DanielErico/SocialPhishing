@@ -59,7 +59,7 @@ from slowapi import Limiter, _rate_limit_exceeded_handler
 from slowapi.errors import RateLimitExceeded
 from slowapi.util import get_remote_address
 
-from feature_extractor import extract_features, FEATURE_COLUMNS, features_to_vector
+from backend.feature_extractor import extract_features, FEATURE_COLUMNS, features_to_vector
 
 # ---------------------------------------------------------------------------
 # Logging setup
