@@ -7,7 +7,7 @@
 
 "use strict";
 
-const BACKEND_URL = "http://localhost:8000/classify";
+const BACKEND_URL = "https://socialphishing-api.onrender.com/classify";
 
 // In-memory URL cache (fast path; reset if service worker is evicted)
 const urlCache = new Map();

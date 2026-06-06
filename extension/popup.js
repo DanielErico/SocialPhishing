@@ -391,7 +391,7 @@ async function analyzeActiveTab() {
       title.textContent = "Error Analyzing Page";
       desc.textContent = response ? response.error : "Failed to connect to the classification backend.";
       reasonDiv.style.display = "none";
-      grid.innerHTML = '<div class="analysis-placeholder">Ensure the local API server is running on port 8000.</div>';
+      grid.innerHTML = '<div class="analysis-placeholder">Ensure the remote API server is online and running.</div>';
     }
   } catch (err) {
     title.textContent = "Connection Failure";
