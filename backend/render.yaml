@@ -1,0 +1,50 @@
+# render.yaml
+# ===========
+# Render.com deployment configuration for the SocialPhishing FastAPI backend.
+#
+# Deployment steps:
+#   1. Push the full url-classifier/ directory to a GitHub repository
+#   2. Connect the repo to Render at https://dashboard.render.com
+#   3. Render auto-detects this file and creates the web service
+#
+# Notes:
+#   - The free tier has a ~50 second cold start after 15 minutes of inactivity.
+#     The Chrome extension should handle this gracefully (show a loading state).
+#   - MODEL_PATH points to the phishing_model.pkl committed in the repo.
+#     If the file is too large for git (>50MB), store it in cloud storage and
+#     download it in the build command instead.
+#   - HTTPS is automatically provided by Render -- no additional config needed.
+
+services:
+  - type: web
+    name: socialphishing-api
+    env: python
+    region: frankfurt    # Closest to UK for lower latency
+    plan: free
+
+    # Root of the repository -- Render uses this as the working directory
+    rootDir: url-classifier
+
+    # Install Python dependencies then run any pre-flight checks
+    buildCommand: pip install -r backend/requirements.txt
+
+    # Start the uvicorn ASGI server; $PORT is injected by Render automatically
+    startCommand: uvicorn backend.main:app --host 0.0.0.0 --port $PORT
+
+    # Environment variables available at runtime
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.11.0"
+
+      # Absolute path to the model file within the deployed container.
+      # Render sets the working directory to rootDir, so the path below
+      # resolves to url-classifier/model/phishing_model.pkl.
+      - key: MODEL_PATH
+        value: model/phishing_model.pkl
+
+      # Uvicorn worker count -- keep at 1 for the free tier (512 MB RAM)
+      - key: WEB_CONCURRENCY
+        value: "1"
+
+    # Health check -- Render pings this endpoint to verify the service is alive
+    healthCheckPath: /health

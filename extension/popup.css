@@ -1,0 +1,335 @@
+/* ==========================================================================
+   popup.css — SocialPhishing Detector Extension Popup Styles
+   Dark glassmorphism design with color-coded safety indicators
+   ========================================================================== */
+
+/* ---- Reset & base ---- */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --bg-primary:      #0f172a;
+  --bg-secondary:    #1e293b;
+  --bg-card:         #1e293b;
+  --border:          rgba(255,255,255,0.07);
+  --text-primary:    #f1f5f9;
+  --text-secondary:  #94a3b8;
+  --text-muted:      #64748b;
+  
+  /* Color system */
+  --accent-safe:     #22c55e;
+  --accent-susp:     #f59e0b;
+  --accent-phish:    #ef4444;
+  --accent-blue:     #3b82f6;
+  
+  /* Translucent states */
+  --bg-safe-trans:   rgba(34, 197, 94, 0.1);
+  --bg-susp-trans:   rgba(245, 158, 11, 0.1);
+  --bg-phish-trans:  rgba(239, 68, 68, 0.1);
+  
+  --radius:          10px;
+}
+
+html, body {
+  width: 350px;
+  min-height: 480px;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+/* ---- Header ---- */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px 12px;
+  border-bottom: 1px solid var(--border);
+  background: linear-gradient(135deg, #0f172a 0%, #1a2744 100%);
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.title {
+  font-size: 15px;
+  font-weight: 700;
+  color: #f1f5f9;
+  letter-spacing: -0.3px;
+  line-height: 1.2;
+}
+
+.subtitle {
+  font-size: 11px;
+  color: var(--text-muted);
+  letter-spacing: 0.3px;
+}
+
+/* Status dot */
+.status-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  cursor: help;
+  transition: background 0.3s;
+}
+.status-active  { background: var(--accent-safe);  box-shadow: 0 0 6px rgba(34,197,94,0.6); }
+.status-warning { background: var(--accent-susp);  box-shadow: 0 0 6px rgba(245,158,11,0.6); }
+.status-offline { background: var(--accent-phish); box-shadow: 0 0 6px rgba(239,68,68,0.6); }
+
+/* ---- Sections ---- */
+.conclusion-section,
+.analysis-section {
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--border);
+}
+
+.section-title {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+}
+
+/* ---- Website Conclusion Card ---- */
+.conclusion-card {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 12px 14px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  transition: all 0.3s ease;
+}
+
+.conclusion-badge {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: 800;
+  color: #fff;
+  flex-shrink: 0;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  transition: all 0.3s ease;
+}
+
+.conclusion-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.conclusion-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.conclusion-desc {
+  font-size: 11px;
+  color: var(--text-secondary);
+  line-height: 1.35;
+}
+
+/* Conclusion states modifiers */
+.conclusion-card-safe {
+  border-left: 4px solid var(--accent-safe);
+  background: linear-gradient(to right, var(--bg-safe-trans), rgba(30,41,59,0.3));
+}
+.conclusion-card-safe .conclusion-badge {
+  background: var(--accent-safe);
+}
+.conclusion-card-safe .conclusion-title {
+  color: var(--accent-safe);
+}
+
+.conclusion-card-suspicious {
+  border-left: 4px solid var(--accent-susp);
+  background: linear-gradient(to right, var(--bg-susp-trans), rgba(30,41,59,0.3));
+}
+.conclusion-card-suspicious .conclusion-badge {
+  background: var(--accent-susp);
+}
+.conclusion-card-suspicious .conclusion-title {
+  color: var(--accent-susp);
+}
+
+.conclusion-card-phishing {
+  border-left: 4px solid var(--accent-phish);
+  background: linear-gradient(to right, var(--bg-phish-trans), rgba(30,41,59,0.3));
+  animation: card-pulse 2s infinite ease-in-out;
+}
+.conclusion-card-phishing .conclusion-badge {
+  background: var(--accent-phish);
+}
+.conclusion-card-phishing .conclusion-title {
+  color: var(--accent-phish);
+}
+
+@keyframes card-pulse {
+  0%, 100% { box-shadow: 0 0 0 rgba(239, 68, 68, 0); }
+  50%       { box-shadow: 0 0 10px rgba(239, 68, 68, 0.15); }
+}
+
+.url-display {
+  margin-top: 10px;
+  font-family: monospace;
+  font-size: 10px;
+  color: var(--text-muted);
+  background: rgba(0,0,0,0.25);
+  padding: 6px 8px;
+  border-radius: 6px;
+  word-break: break-all;
+  max-height: 48px;
+  overflow-y: auto;
+  border: 1px solid rgba(255,255,255,0.03);
+}
+
+.conclusion-reason {
+  margin-top: 10px;
+  font-size: 11px;
+  color: var(--text-secondary);
+  line-height: 1.45;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px dashed var(--border);
+  border-radius: 8px;
+  padding: 10px 12px;
+}
+
+.conclusion-reason strong {
+  color: var(--text-primary);
+  display: block;
+  margin-bottom: 4px;
+}
+
+.conclusion-reason ul {
+  padding-left: 16px;
+  margin-top: 4px;
+}
+
+.conclusion-reason li {
+  margin-bottom: 3px;
+}
+
+
+/* ---- Feature Analysis Grid ---- */
+.analysis-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.analysis-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  padding: 8px 12px;
+  border-radius: 8px;
+  transition: all 0.2s;
+}
+
+.analysis-item:hover {
+  border-color: rgba(255,255,255,0.12);
+  background: rgba(30, 41, 59, 0.8);
+}
+
+.analysis-info-left {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.analysis-label {
+  font-weight: 600;
+  font-size: 11px;
+  color: var(--text-primary);
+}
+
+.analysis-detail {
+  font-size: 9.5px;
+  color: var(--text-muted);
+}
+
+.analysis-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.analysis-value {
+  font-family: monospace;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-secondary);
+}
+
+.analysis-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* Dot colors */
+.dot-safe       { background: var(--accent-safe);  box-shadow: 0 0 5px rgba(34,197,94,0.4); }
+.dot-suspicious { background: var(--accent-susp);  box-shadow: 0 0 5px rgba(245,158,11,0.4); }
+.dot-phishing   { background: var(--accent-phish); box-shadow: 0 0 5px rgba(239,68,68,0.4); }
+
+.analysis-placeholder {
+  text-align: center;
+  font-size: 11px;
+  color: var(--text-muted);
+  padding: 20px 0;
+}
+
+/* ---- Footer ---- */
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px;
+  background: var(--bg-secondary);
+  border-top: 1px solid var(--border);
+}
+
+.footer p {
+  font-size: 10px;
+  color: var(--text-muted);
+}
+
+.api-link {
+  font-size: 10px;
+  color: var(--accent-blue);
+  text-decoration: none;
+  transition: color 0.15s;
+}
+
+.api-link:hover {
+  color: #60a5fa;
+  text-decoration: underline;
+}

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SocialPhishing Detector</title>
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+
+  <!-- ===== Header ===== -->
+  <header class="header">
+    <div class="header-left">
+      <img src="icons/icon48.png" alt="SocialPhishing logo" class="logo" />
+      <div>
+        <h1 class="title">SocialPhishing</h1>
+        <p class="subtitle">URL Phishing Detector</p>
+      </div>
+    </div>
+    <div id="status-dot" class="status-dot status-active" title="Extension active"></div>
+  </header>
+
+  <!-- ===== Website Conclusion ===== -->
+  <section class="conclusion-section" aria-label="Website safety conclusion">
+    <div class="conclusion-card" id="conclusion-card">
+      <div class="conclusion-badge" id="conclusion-badge">–</div>
+      <div class="conclusion-info">
+        <h2 class="conclusion-title" id="conclusion-title">Analyzing...</h2>
+        <p class="conclusion-desc" id="conclusion-desc">Evaluating URL safety patterns using our SVM model.</p>
+      </div>
+    </div>
+    <div class="url-display" id="url-display">Loading current tab URL...</div>
+    <div class="conclusion-reason" id="conclusion-reason" style="display: none;"></div>
+  </section>
+
+  <!-- ===== Detailed Analysis ===== -->
+  <section class="analysis-section" aria-label="Detailed feature analysis">
+    <h2 class="section-title">URL Pattern Analysis</h2>
+    <div class="analysis-grid" id="analysis-grid">
+      <!-- Features will be dynamically inserted here -->
+      <div class="analysis-placeholder">Analyzing site characteristics...</div>
+    </div>
+  </section>
+
+  <!-- ===== Footer ===== -->
+  <footer class="footer">
+    <p>Powered by an SVM ML model &bull; SocialFish Project</p>
+    <a href="http://localhost:8000/docs" target="_blank" rel="noopener" class="api-link">API Docs &#x2197;</a>
+  </footer>
+
+  <script src="popup.js"></script>
+</body>
+</html>
