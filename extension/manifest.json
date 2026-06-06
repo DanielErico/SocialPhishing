@@ -11,7 +11,7 @@
   ],
 
   "host_permissions": [
-    "http://localhost:8000/*",
+    "https://socialphishing-api.onrender.com/*",
     "https://*/*",
     "http://*/*"
   ],

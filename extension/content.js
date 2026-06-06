@@ -8,7 +8,7 @@
 
 "use strict";
 
-const BACKEND_URL = "http://localhost:8000/classify";
+const BACKEND_URL = "https://socialphishing-api.onrender.com/classify";
 const NS = "sp-page-warning";
 
 // Helper — decide if a URL is worth classifying

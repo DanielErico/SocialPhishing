@@ -407,7 +407,7 @@ async function analyzeActiveTab() {
 async function checkBackend() {
   const dot = document.getElementById("status-dot");
   try {
-    const res = await fetch("http://localhost:8000/health", {
+    const res = await fetch("https://socialphishing-api.onrender.com/health", {
       signal: AbortSignal.timeout(3000),
     });
     if (res.ok) {
