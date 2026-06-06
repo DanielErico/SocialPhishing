@@ -11,8 +11,6 @@
 #   - The free tier has a ~50 second cold start after 15 minutes of inactivity.
 #     The Chrome extension should handle this gracefully (show a loading state).
 #   - MODEL_PATH points to the phishing_model.pkl committed in the repo.
-#     If the file is too large for git (>50MB), store it in cloud storage and
-#     download it in the build command instead.
 #   - HTTPS is automatically provided by Render -- no additional config needed.
 
 services:
@@ -21,9 +19,6 @@ services:
     env: python
     region: frankfurt    # Closest to UK for lower latency
     plan: free
-
-    # Root of the repository -- Render uses this as the working directory
-    rootDir: url-classifier
 
     # Install Python dependencies then run any pre-flight checks
     buildCommand: pip install -r backend/requirements.txt
@@ -37,8 +32,7 @@ services:
         value: "3.11.0"
 
       # Absolute path to the model file within the deployed container.
-      # Render sets the working directory to rootDir, so the path below
-      # resolves to url-classifier/model/phishing_model.pkl.
+      # Resolves to model/phishing_model.pkl from the repo root.
       - key: MODEL_PATH
         value: model/phishing_model.pkl
 
